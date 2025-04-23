@@ -3,9 +3,9 @@ from werkzeug.security import generate_password_hash
 from mysql.connector import errorcode
 
 config = {
-    'user': 'root',
-    'password': 'kursk1342',
-    'host': 'localhost'
+    'user': 'admin',
+    'password': 'klaudaws6785',
+    'host': 'database-1.cc9qg6abmvfv.us-east-1.rds.amazonaws.com'
 }
 
 try:
