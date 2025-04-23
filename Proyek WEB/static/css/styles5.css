@@ -1,0 +1,70 @@
+/* Basic styles for Rent Approval Page */
+.approval {
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Menambahkan gap antar elemen di dalam approval container */
+}
+
+.approval h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.approval__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem; /* Memberikan jarak antara judul dan tabel */
+}
+
+.approval__table th,
+.approval__table td {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.approval__table th {
+  background-color: #f4f4f4;
+}
+
+/* Button Styles */
+button {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+.approve-btn {
+  background-color: #4CAF50;
+}
+
+.reject-btn {
+  background-color: #f44336;
+}
+
+/* Gap antara tombol Approve dan Reject */
+button:not(:last-child) {
+  margin-right: 10px; /* Memberikan jarak antar tombol */
+}
+
+/* Responsiveness untuk tampilan lebih kecil */
+@media screen and (max-width: 768px) {
+  .approval {
+    padding: 1rem; /* Menambah padding untuk tampilan kecil */
+  }
+
+  .approval__table {
+    font-size: 0.9rem; /* Mengurangi ukuran font tabel pada layar kecil */
+  }
+
+  button {
+    width: 100%; /* Tombol mengambil 100% lebar pada perangkat kecil */
+    margin-bottom: 10px; /* Memberikan jarak antar tombol */
+  }
+}
