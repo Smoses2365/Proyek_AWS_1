@@ -5,9 +5,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = "kursk1342"
-app.config["MYSQL_HOST"] = "localhost"
+app.config["MYSQL_USER"] = "admin"
+app.config["MYSQL_PASSWORD"] = "klaudaws6785"
+app.config["MYSQL_HOST"] = "database-1.cc9qg6abmvfv.us-east-1.rds.amazonaws.com"
 app.config["MYSQL_DB"] = "car_rental_dbs"
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 app.secret_key = "secret"
