@@ -1,5 +1,5 @@
 import mysql.connector
-from mysql.connector import errorcodehttps://github.com/Smoses2365/Proyek_AWS_1/blob/master/db.py
+from mysql.connector import errorcode
 from flask import Flask, request, jsonify
 
 # ----------------------------
