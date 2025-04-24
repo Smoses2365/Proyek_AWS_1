@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List & Event Reminder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    form {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    input, select, button {
+      padding: 8px;
+      font-size: 1em;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+      background: white;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+    }
+    .category {
+      font-size: 0.9em;
+      font-style: italic;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  <section>
+    <form id="todo-form">
+      <input type="text" id="todo-title" placeholder="Add new task..." required />
+      <button type="submit">Add</button>
+    </form>
+    <ul id="todo-list"></ul>
+    <h1 style="font-size: 1em; text-align: left;">📌 Penting: Task yang berada di paling bawah adalah yang paling baru ditambahkan</h1>
+  </section>
+
+  <h1>Event Reminders</h1>
+  <section>
+    <form id="event-form">
+      <input type="text" id="event-name" placeholder="Event name" required />
+      <input type="date" id="event-date" required />
+      <select id="event-category">
+        <option value="absolutely important">Absolutely Important</option>
+        <option value="important">Important</option>
+        <option value="moderate">Moderate</option>
+      </select>
+      <button type="submit">Add</button>
+    </form>
+    <ul id="event-list"></ul>
+  </section>
+
+  <script>
+    const API_BASE = 'http://localhost:3000';
+
+    function createTodoItem(todo) {
+      const li = document.createElement('li');
+      li.textContent = todo.title;
+      return li;
+    }
+
+    function createEventItem(ev) {
+      const li = document.createElement('li');
+      li.innerHTML = `${ev.name} - ${ev.date} <span class="category">(${ev.category})</span>`;
+      return li;
+    }
+
+    async function fetchTodos() {
+      const res = await fetch(`${API_BASE}/todos`);
+      const todos = await res.json();
+      const list = document.getElementById('todo-list');
+      list.innerHTML = '';
+      todos.forEach(todo => {
+        list.appendChild(createTodoItem(todo)); // tampilkan dari lama ke baru (bawah)
+      });
+    }
+
+    async function fetchEvents() {
+      const res = await fetch(`${API_BASE}/events/notifications`);
+      const events = await res.json();
+      const list = document.getElementById('event-list');
+      list.innerHTML = '';
+      events.forEach(ev => {
+        list.appendChild(createEventItem(ev));
+      });
+    }
+
+    document.getElementById('todo-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.getElementById('todo-title');
+      const title = input.value.trim();
+      if (!title) return;
+
+      const res = await fetch(`${API_BASE}/todos`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ title })
+      });
+
+      const newTodo = await res.json();
+      const list = document.getElementById('todo-list');
+      list.appendChild(createTodoItem(newTodo)); // ubah jadi appendChild untuk taruh di bawah
+      input.value = '';
+    });
+
+    document.getElementById('event-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('event-name').value.trim();
+      const date = document.getElementById('event-date').value;
+      const category = document.getElementById('event-category').value;
+
+      if (!name || !date) return;
+
+      const res = await fetch(`${API_BASE}/events`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, date, category })
+      });
+
+      const newEvent = await res.json();
+      const list = document.getElementById('event-list');
+      list.appendChild(createEventItem(newEvent));
+      document.getElementById('event-name').value = '';
+      document.getElementById('event-date').value = '';
+    });
+
+    fetchTodos();
+    fetchEvents();
+  </script>
+</body>
+</html>
