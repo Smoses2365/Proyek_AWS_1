@@ -130,5 +130,5 @@ def add_event():
     cursor.close()
     conn.close()
     return jsonify(new_event), 201
-if "name" == 'main':
+if __name__ == '__main__':
     app.run(debug=True, port=3000)
