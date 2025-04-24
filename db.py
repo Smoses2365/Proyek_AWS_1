@@ -1,13 +1,13 @@
 import mysql.connector
-from mysql.connector import errorcode
+from mysql.connector import errorcodehttps://github.com/Smoses2365/Proyek_AWS_1/blob/master/db.py
 from flask import Flask, request, jsonify
 
 # ----------------------------
 # Konfigurasi koneksi MySQL
 db_config = {
-    'host': 'localhost',
-    'user': 'root',       # ganti sesuai user MySQL-mu
-    'password': 'password',  # ganti sesuai password
+    'host': 'database-1.cc9qg6abmvfv.us-east-1.rds.amazonaws.com',
+    'user': 'admin',       
+    'password': 'klaudaws6785',  
     'database': 'todo_event_db'
 }
 
